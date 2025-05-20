@@ -1,0 +1,57 @@
+"Start Symbol" = <program> 
+               !-----------Terminal------
+id = {letter}({letter}|{digit})*
+digit = ['+'|'-']{digit}+('.'{digit}+)?('e'['+'|'-']{digit}+)?
+               !------------Rules---------
+<program> ::= start <stmt_list> end
+           
+<stmt_list> ::= <elkalam>
+             |<elkalam><stmt_list>  
+             
+<elkalam> ::= <decl_stmt>
+           |<assign_stmt>
+           |<cond_stmt>
+           |<loop_stmt>
+           |<method_decl>
+           |<method_call>
+           
+<id> ::= Id
+<digit> ::= Digit   
+         !---------------Declaration--------
+<decl_stmt>  ::= 3rf <id> <type>
+<type> ::= rakam | kasr | kalam | bool
+        
+         !---------------Assignment---------
+<assign_stmt> ::= 7ot'(' <id> '=' '('<expr>')'
+
+<expr> ::= <term> '+' <expr>  
+           | <term> '-' <expr>  
+           | <term>
+
+<term> ::= <factor> '*' <term>  
+         | <factor> '/' <term> 
+         | <factor>
+
+<factor> ::= <id>
+           | <digit>
+                  
+         !------------Condition------------
+<cond_stmt> ::= lw' ('<elshart>')' a3ml '(' <stmt_list>')' 
+      |lw '('<elshart>')' a3ml '(' <stmt_list>')' lw brdo '(' <stmt_list>')'
+
+<elshart> ::= <expr><op><expr>           
+<op> ::= '<' | '>' | '==' |'!='     
+             
+          !------------For------------------
+<loop_stmt> ::= 'kol_shwaya' <id>  'law' <elshart> 'a3ml' '(' <stmt_list> ')'
+
+           
+          !------------Method Declartion------------
+<method_decl>::= e3ml <id> '(' <m3aya> ')' '(' <stmt_list> ')'
+<m3aya> ::=  <id>
+           | <id> ',' <m3aya>
+         
+          !------------Method Calling------------
+<method_call> ::= nady 3la <id> '(' <wdi> ')' 
+<wdi> ::= <expr>
+         | <expr> ',' <wdi>    
